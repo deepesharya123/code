@@ -1,0 +1,97 @@
+import java.util.Scanner;
+
+public class div663a {
+
+	static void merge(int[] a,int l,int m,int u) {
+		int n1= m-l+1;
+		int n2 = u-m;
+		
+		int i,j;
+		int[] left = new int[n1];
+		int[] ri = new int[n2];
+		
+		for(i=0;i<n1;i++)
+			left[i]=a[i+l];
+		for(i=0;i<n2;i++)
+			ri[i]=a[i+m+1];
+		
+		i=0;
+		j=0;
+		int k=l;
+		while(i<n1&&j<n2) {
+			if(left[i]<ri[j]) {
+				a[k]=left[i];
+				i++;
+			}else {
+				a[k]=ri[j];
+				j++;
+			}
+			k++;
+		}
+		
+		while(i<n1) {
+			a[k]=left[i];
+			i++;
+			k++;
+		}
+		
+		while(j<n2) {
+			a[k]=ri[j];
+			j++;k++;
+		}
+		
+		
+	}
+
+	
+	static void sort(int[] a,int l,int u) {
+		if(l<u) {
+			int m  = u+l;
+			m/=2;
+			sort(a,l,m);
+			sort(a,m+1,u);
+			
+			merge(a,l,m,u);
+		}
+	}
+	
+	
+	public static void main(String args[]) {
+		Scanner in = new  Scanner(System.in);
+
+		int t = in .nextInt();
+		int i;
+		for(i=0;i<t;i++) {
+			int n = in.nextInt();
+			int m = in.nextInt();
+			int[][] a = new int[2*n][2];
+			int j;
+			int yes=0;
+			
+			for(j=0;j<n;j++) {
+				a[j][0]=in.nextInt();
+				a[j][1]=in.nextInt();
+				a[j+1][0]=in.nextInt();
+				a[j+1][1]=in.nextInt();
+				
+				if(a[j][1]==a[j+1][0])
+					yes=1;
+				
+			}
+			
+//			System.out.println(m+" "+n);
+			if(m%2!=0)
+				System.out.println("NO");
+			else {
+				if(yes==1)
+				System.out.println("YES");
+				else
+					System.out.println("NO");
+			
+			}
+			
+		}
+		
+	}
+	
+}
