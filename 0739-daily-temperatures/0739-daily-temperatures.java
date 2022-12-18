@@ -9,7 +9,7 @@ class Solution {
                 ans[i]=0;
             }else{
                 while(st.size()>0 && temperatures[st.peek()]<=num){
-                    st.remove(st.peek());
+                    st.pop();
                 }   
                 if(st.size()>0){
                     ans[i]=st.peek()-i;
