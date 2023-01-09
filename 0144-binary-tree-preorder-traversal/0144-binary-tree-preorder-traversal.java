@@ -15,19 +15,32 @@
  */
 class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
-//         Iterative Approach for preorder traversal
-        Stack<TreeNode> st =  new Stack<>();
-        st.add(root);
-        List<Integer> ans = new ArrayList<>();
-        if(root==null) return ans;
-        while(st.size()>0){
-            TreeNode node = st.pop();
-            ans.add(node.val);
-            
-            if(node.right!=null)
-                st.add(node.right);
-            if(node.left!=null)
-                st.add(node.left);
+//      Morris traversal
+        TreeNode cur = root;
+        List<Integer> ans=  new ArrayList<>();
+        while(cur!=null){
+            if(cur.left==null){
+                TreeNode temp = cur;
+                ans.add(cur.val);
+                cur = cur.right;
+                
+                // System.out.println("id "+temp.val+" "+cur.val);
+            }else{
+                TreeNode right_most_node = cur.left;
+                while(right_most_node.right!=null && right_most_node.right!=cur)
+                    right_most_node = right_most_node.right;
+                
+                
+                if(right_most_node.right==null){
+                    ans.add(cur.val);
+                    right_most_node.right = cur;
+                    cur = cur.left;
+                
+                }else{
+                    cur = cur.right;
+                    right_most_node.right = null; 
+                }
+            }
         }
         return ans;
     }
