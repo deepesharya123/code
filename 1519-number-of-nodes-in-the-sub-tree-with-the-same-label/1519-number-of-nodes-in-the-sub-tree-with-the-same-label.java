@@ -4,7 +4,6 @@ class Solution {
         
         int[] child = new int[26];
         
-        child[label[node]-'a']=1;
         for(int it: adj.get(node)){
             if(it!=par){
                 int temp[] = post(it, node, label, adj,label[it],ans);
@@ -13,7 +12,8 @@ class Solution {
                 }
             }
         }
-            
+        
+        child[label[node]-'a']++;    
         ans[node] = child[label[node]-'a'];
         return child;
     }
