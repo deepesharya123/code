@@ -38,8 +38,6 @@ class Solution {
         
         for(int i = ind; i < ch.size()-1 ; i++){
             char c = (char) ch.get(i);
-            if(c=='.')
-                continue;
             ch.add(i+1,'.');
             solve(ans,ch,dots-1,i+2);
             ch.remove(i+1);
