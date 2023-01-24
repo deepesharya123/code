@@ -16,23 +16,19 @@ class Solution {
                 }
                 ind--;
             }
-            if(f){
-                f = false;
-            }else{
-                f = true;
-            }
+            f=!f;
         }
         
         //bfs
-        Queue<Integer> q = new LinkedList<>();
-        Set<Integer> hs = new HashSet<>();
-        q.add(1);
-        hs.add(1);
+        Queue<Integer> curCell = new LinkedList<>();
+        Set<Integer> visitedCell = new HashSet<>();
+        curCell.add(1);
+        visitedCell.add(1);
         int step = 0;
-        while(!q.isEmpty()){
-            int size = q.size();
+        while(!curCell.isEmpty()){
+            int size = curCell.size();
             for(int i=0; i<size; i++){
-                int curr = q.remove();
+                int curr = curCell.remove();
                 if(curr == len*len){
                     return step;
                 }
@@ -45,9 +41,9 @@ class Solution {
                     if(hm.get(next) != -1){
                         next = hm.get(next);
                     }
-                    if(!hs.contains(next)){
-                        q.add(next);
-                        hs.add(next);
+                    if(!visitedCell.contains(next)){
+                        curCell.add(next);
+                        visitedCell.add(next);
                     }
                 }
             }
