@@ -13,22 +13,23 @@
  *     }
  * }
  */
+
 class Solution {
-    static int ans = 0;
     
-    public static void preorder(TreeNode root, int height){
-        if(root==null){
-            ans = Math.max(ans,height);
-            return;
-        }
-        preorder(root.left,height+1);
-        preorder(root.right,height+1);
+    public int depth(TreeNode root){
+        if(root.left==null && root.right == null)
+            return 1;
         
+        int left = 0, right = 0;
+        if(root.left!=null)
+            left = depth(root.left);
+        right = root.right!=null ? depth(root.right):0;
+        
+        return Math.max(left,right)+1;
     }
     
     public int maxDepth(TreeNode root) {
-        ans = 0;
-        preorder(root,0);
-        return ans;
+        if(root==null) return 0;
+        return depth(root);
     }
 }
