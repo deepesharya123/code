@@ -13,26 +13,30 @@
  *     }
  * }
  */
-class Solution {
-    List<Integer> list=  new ArrayList<>();
-    public void solve(TreeNode root){
-        if(root==null) return;
 
-        solve(root.left);
+class Solution {
+    int dif = Integer.MAX_VALUE;
+    List<Integer> list = new ArrayList<>();
+    public void solve(TreeNode root, int pre){
+        if(root==null)  return;
+        solve(root.left,pre);
         list.add(root.val);
-        solve(root.right);
         
+        if(list.size()==2){
+            int first = list.get(0), second = list.get(1);
+            dif = Math.min(dif,second-first);
+            list.remove(0);
+        }
+       
+        solve(root.right,pre);
+           
+                
     }
     
     public int minDiffInBST(TreeNode root) {
-        int dif = Integer.MAX_VALUE;
-        solve(root);
-        for(int i = 0;i<list.size()-1;i++){
-            int n = list.get(i), m = list.get(i+1);
-            dif = Math.min(dif,m-n);    
-        }
-        
+        int pre = -1;
+        dif = Integer.MAX_VALUE;
+        solve(root,pre);
         return dif;
-        
     }
 }
