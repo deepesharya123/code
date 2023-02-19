@@ -13,6 +13,7 @@
  *     }
  * }
  */
+
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         boolean left_to_right = true;
