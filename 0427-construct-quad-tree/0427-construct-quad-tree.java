@@ -84,18 +84,7 @@ class Solution {
     
     public Node construct(int[][] grid) {
         int n = grid.length, m = grid[0].length;
-        int cells = 0, sum = 0, i = 0, j =0;
-        for(i=0;i<n;i++)
-            for(j=0;j<m;j++){
-                cells++;
-                sum+=grid[i][j];
-            }
-                
-        Node root ;
-        if( (cells == sum ) || sum == 0  ){
-            root = new Node(sum>0?true:false,true);
-            return root;
-        }
+
         int mid = n/2;
         int[] tl = {0,0}, tr = {0,n-1}, bl = {n-1,0}, br = {bl[0],tr[1]};
         
