@@ -98,41 +98,8 @@ class Solution {
         }
         int mid = n/2;
         int[] tl = {0,0}, tr = {0,n-1}, bl = {n-1,0}, br = {bl[0],tr[1]};
+        
+        return createNode(grid,tl,tr,bl);
 
-        int[] upperHorizontalMid = {tl[0], (tl[1]+tr[1]) / 2 };
-        int[] leftVerticalMid = { (tl[0]+bl[0]) /2, tl[1] };
-        int[] center = { ((tl[0]+bl[0]) /2 ) ,((tl[1]+tr[1]) / 2)   +1};
-        int[] rightVerticalMid = {((tr[0]+br[0])/2)+1,tr[1]};
-        int[] lowerHorizontalMid = { bl[0], ((bl[1]+br[1]) /2 )+1 };
-        Node topLeftNode = createNode(grid, tl, upperHorizontalMid, leftVerticalMid );
-        upperHorizontalMid[1]++;
-        Node topRightNode = createNode(grid,upperHorizontalMid,tr, center );
-        leftVerticalMid[0]++;
-        center[0]++;
-        center[1]--;
-        Node bottomLeftNode = createNode(grid,leftVerticalMid, center,bl );
-        center[1]++;
-        
-        Node bottomRightNode = createNode(grid, center, rightVerticalMid,lowerHorizontalMid);
-        
-        root = new Node(true,false, topLeftNode, topRightNode, bottomLeftNode, bottomRightNode);
-        
-        return root;
     }
 }
-
-/*
-
-[[0,1],[1,0]]
-[[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0]]
-[[1,1],[1,1]]
-[[1]]
-[[0]]
-[[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,0,1,0,0],[1,1,1,1,0,0,0,0]]
-[[0,1],[1,0]]
-[[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0]]
-[[1,1],[1,0]]
-[[0,1,1,0,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1],[1,1,1,1,0,0,0,0],[1,0,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0]]
-
-
-*/
