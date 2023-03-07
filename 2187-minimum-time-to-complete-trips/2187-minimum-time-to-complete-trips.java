@@ -24,12 +24,7 @@ class Solution {
     
     public long minimumTime(int[] time, int totalTrips) {
         long i = 0, j = totalTrips;
-        int n = time.length, mx  = time[0],mn = time[0];
-        for(int ii = 0; ii < time.length ; ii++){
-            mn = (int) Math.min(mn,time[ii]);
-            mx = (int) Math.max(mx,time[ii]);
-        }
-        
+        int n = time.length;
         j*=time[n-1];
         solve(i,j,time,totalTrips);
         return ans;
