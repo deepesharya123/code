@@ -13,7 +13,6 @@ class Solution {
         for(int i = ind2; i < nums2.length ; i++){
             int num = nums2[i];
             int inc = 0, dis = 0;
-            int a = solve(nums1, nums2, ind1, i+1);
             int b = solve(nums1, nums2, ind1+1, i);
             int c = solve(nums1, nums2, ind1 +1, i+1);
             
@@ -37,16 +36,3 @@ class Solution {
         return ans;
     }
 }
-
-/*
-
-[1,4,2]
-[1,2,4]
-[2,5,1,2,5]
-[10,5,2,1,5,2]
-[1,3,7,1,7,5]
-[1,9,2,5,1]
-
-
-
-*/
