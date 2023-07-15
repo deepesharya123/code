@@ -10,7 +10,7 @@ class Solution {
                 if(hm.get(req)==0)
                     hm.remove(req);
                 continue;
-            }
+            }else
             hm.put(num, hm.getOrDefault(num,0)+1);
         }
         
