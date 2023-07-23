@@ -2,7 +2,8 @@ class Solution {
     public boolean checkSubarraySum(int[] nums, int k) {
         HashMap<Integer,Integer> hm  = new HashMap<>();
         hm.put(0,0);
-        
+        if(nums.length < 2) 
+            return false;
         int sum = 0;
         // hm.put(0,-1);
         for( int  i = 0;i < nums.length; i++){
@@ -19,22 +20,3 @@ class Solution {
         return false;
     }
 }
-
-/*
-
-
-[23,2,4,6,7]
-6
-[23,2,4,6,7]
-12
-[23,2,4,6,7]
-13
-[23,2,4,6,7]
-16
-[23,2,4,6,6]
-7
-[0]
-1
-
-
-*/
