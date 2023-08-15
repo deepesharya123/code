@@ -10,36 +10,38 @@
  */
 class Solution {
     public ListNode partition(ListNode head, int x) {
-        ListNode ret = null, trav = head, temp = null;
-//         sotring all the smaller values first
-        while(trav != null){
-            if(trav.val < x){
-                ListNode newNode = new ListNode(trav.val);
-                if(ret == null){
-                    ret = newNode;
-                    temp = newNode;
+        ListNode left = null, right = null, temp = head;
+        ListNode leftHead = null, rightHead = null;
+        while(temp != null){
+            if(temp.val < x){
+                if(leftHead == null){
+                    left = temp;
+                    leftHead = temp;
                 }else{
-                    temp.next = newNode;
-                    temp = newNode;
+                    left.next = temp;
+                    left = left.next;
+                }
+            }else{
+                if(rightHead == null){
+                    right = temp;
+                    rightHead = right;
+                }else{
+                    right.next = temp;
+                    right = right.next;
                 }
             }
-            trav = trav.next;
+            temp = temp.next;
         }
-//         storing all values greater than or equal to x
-        trav = head;
-        while(trav != null){
-            if(trav.val >= x){
-                ListNode newNode = new ListNode(trav.val);
-                if(ret == null ){
-                    ret = newNode;
-                    temp = newNode;
-                }else{
-                    temp.next = newNode;
-                    temp = newNode;
-                }
-            }
-            trav = trav.next;
-        }
-        return ret;
+        
+        if(left != null)
+            left.next = null ;
+        if(right != null)
+            right.next = null;
+        if(left != null)
+            left.next = rightHead;
+        else
+            return rightHead;
+        return leftHead;
+        
     }
 }
