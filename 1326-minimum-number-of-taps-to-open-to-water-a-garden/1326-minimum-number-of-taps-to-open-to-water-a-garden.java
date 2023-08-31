@@ -4,11 +4,11 @@ class Solution {
     public long solve(int ind, int[][] intervals){
         int len = intervals.length;
         
+        if(intervals[ind][1] >= len-1)
+            return 1;
         if(ind >= len)
             return Integer.MAX_VALUE;
         
-        if(intervals[ind][1] >= len-1)
-            return 1;
         
         if(dp[ind] != -1)
             return dp[ind];
