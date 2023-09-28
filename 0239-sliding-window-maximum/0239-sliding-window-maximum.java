@@ -2,7 +2,7 @@ class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
         int n = nums.length;
         int[] ans = new int[n-k+1];
-        PriorityQueue<Integer> mxheap = new PriorityQueue<>(Collections.reverseOrder());
+        
         int ii = 0, i = 0, max =  Integer.MIN_VALUE;
         Deque<Integer> deque = new ArrayDeque<>();
         // System.out.println(deque.peekLast());
