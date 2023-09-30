@@ -1,34 +1,26 @@
 class Solution {
-    int[][] dp ;
+    int[][] dp = new int[303][5003];
     
-    public int solve(int target, int[] coins, int ind){
-        
-        if(target == 0)
-            return 1;
-        if(ind < 0 || target < 0 )
+    public int solve(int[] coins, int n, int amount){
+        if( n <= 0 )
             return 0;
+        if( amount == 0)
+            return 1;
+        if( dp[n-1][amount] != -1)
+            return dp[n-1][amount];
+        if( coins[n-1] <= amount ){
+            int inc  = solve(coins, n , amount - coins[n-1]);
+            int dis = solve(coins, n-1, amount);
+            return dp[n-1][amount] = (inc+dis);
+        }
         
-        if(dp[target][ind] != -1)
-            return dp[target][ind];
+        return dp[n-1][amount] = solve(coins, n-1, amount); 
         
-        int n = coins.length;
-        int ret = Integer.MIN_VALUE, inc = Integer.MIN_VALUE, dis = Integer.MIN_VALUE;
-        
-        dis = solve(target,coins,ind-1);
-        
-        inc = solve(target - coins[ind] , coins, ind);
-        
-        ret = inc+dis;
-        dp[target][ind] = ret;
-        return ret;
     }
     
     public int change(int amount, int[] coins) {
-        int n = coins.length;
-        dp = new int[amount+5][n+5];
-        for(int[] ar : dp)
-            Arrays.fill(ar,-1);
-        
-        return solve(amount, coins,n-1);    
+        for(int [] ar : dp)
+            Arrays.fill(ar, -1);
+        return solve(coins, coins.length, amount);
     }
 }
