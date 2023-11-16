@@ -26,15 +26,6 @@ class Solution {
                 break;
             if( !set.contains(i) ){
                 int num = i;
-                // System.out.println(num+" num i check "+i);
-                
-                if( i == 0 ){
-                    while( n > 0){
-                        ans+="0";
-                        n--;
-                    }
-                    break;
-                }
                 while( num > 0 ){
                     int d = num % 2;
                     ans = d +ans;
