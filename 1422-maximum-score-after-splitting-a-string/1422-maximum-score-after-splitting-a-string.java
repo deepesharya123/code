@@ -12,7 +12,6 @@ class Solution {
             char c = s.charAt(i);
             zero+= c == '0' ? 1 : 0;
             curOne+= c =='1' ? 1 : 0;
-            System.out.println(zero+" "+curOne+" "+c);
             int temp = zero + (totalOnes-curOne);
             ans = Math.max(temp, ans);
         }
