@@ -1,60 +1,43 @@
-import java.util.*;
 class Solution {
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
-//         steps, cost , node
-        PriorityQueue<Pair<Integer,Pair<Integer,Integer>>> pq;
-        pq = new PriorityQueue<>((a,b)-> a.getKey()-b.getKey());
-        int ans=  Integer.MAX_VALUE;
-        pq.add(new Pair(0,new Pair(0,src)));
-        
-//         from -> [Pair(to, cost)]
-        List<List<Pair<Integer,Integer>>> adj = new ArrayList<>();
-        for(int i = 0;i<n;i++){
-            List<Pair<Integer,Integer>> temp = new ArrayList<>();
-            adj.add(temp);
+
+        HashMap<Integer,ArrayList<Pair<Integer,Integer>>> map = new HashMap<>();
+        for(int[] ar : flights ){
+            int from = ar[0] , to = ar[1] , price = ar[2];
+            if(!map.containsKey(from))
+                map.put(from, new ArrayList<>());
+            map.get(from).add(new Pair(to,price));
         }
-        for(int i = 0;i<flights.length;i++){
-            int from = flights[i][0];
-            int to = flights[i][1];
-            int cost = flights[i][2];
-            
-            adj.get(from).add(new Pair(to, cost));
-            
-        }
+        //         cur_k , cur_node, cur_cost
+        PriorityQueue<Pair<Integer,Pair<Integer,Integer>>> queue = new PriorityQueue<>((a,b)-> a.getKey()-b.getKey());
+        queue.add(new Pair(0,new Pair(src,0)));
         int[] dist = new int[n];
         Arrays.fill(dist,Integer.MAX_VALUE);
-        dist[src] = 0;
-        while(!pq.isEmpty()){
-            int steps = (int) pq.peek().getKey();
-            int cost = (int) pq.peek().getValue().getKey();
-            int node = (int) pq.peek().getValue().getValue();
-            pq.remove();
+        dist[src] = 0 ;
+        while( queue.size() > 0 ){
+            int cur_k = queue.peek().getKey();
+            int cur_node = queue.peek().getValue().getKey();
+            int cur_cost = queue.peek().getValue().getValue();
             
-            for(Pair<Integer,Integer> p: adj.get(node)){
-                int nbr = (int) p.getKey();
-                int cos = (int) p.getValue();
+            queue.poll();
+            if( map.get(cur_node) != null )
+            for(Pair<Integer,Integer> nbr : map.get(cur_node)){
+                int nbr_node = nbr.getKey(), nbr_cost = nbr.getValue();
                 
-                if(cost+cos<=dist[nbr] ){
-                    if(steps+1<=k ){
-                        dist[nbr] = cost+cos;
-                        // System.out.println(nbr+" i "+dist[nbr]);
-                        pq.add(new Pair(steps+1,new Pair(cost+cos,nbr)));
-                    }else if(steps+1==k+1 && nbr==dst){
-                        dist[nbr] = cost+cos;
-                        // System.out.println(nbr+" e "+dist[nbr]);
-                        pq.add(new Pair(steps+1,new Pair(cost+cos,nbr)));    
+                if( dist[nbr_node] > cur_cost + nbr_cost ){
+                    if( cur_k + 1 <= k || cur_k+1 == k+1 && nbr_node == dst ){
+                        dist[nbr_node] = cur_cost + nbr_cost;
+                        queue.add(new Pair(cur_k+1, new Pair(nbr_node,dist[nbr_node])));
                     }
+                        
                 }
+            
+            
             }
-            
-            
+
         }
-        // for(int d:dist)
-        //     System.out.print(d+" ");
-        // System.out.println();
-        
-        
-        return dist[dst]==Integer.MAX_VALUE ? -1: dist[dst];
+        int ans = dist[dst];
+        return ans == Integer.MAX_VALUE ? -1 : ans;
         
     }
 }
