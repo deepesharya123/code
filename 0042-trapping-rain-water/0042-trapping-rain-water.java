@@ -11,7 +11,7 @@ class Solution {
                 continue;
             }
             while(st.size()>0 && 
-            ( st.peek()==-1 || height[st.peek()]<=height[i])){
+            (  height[st.peek()]<=height[i])){
                 st.pop();
             }
             if(st.size()>0){
@@ -31,7 +31,7 @@ class Solution {
                 continue;
             }
             while(st.size()>0 && 
-            (st.peek()==-1 || height[st.peek()]<=height[i])){
+            ( height[st.peek()]<=height[i])){
                 st.pop();
             }
             if(st.size()>0){
