@@ -8,12 +8,11 @@ class Solution {
         
         int ret = 0 ;
 //         include current word
-        boolean remove  = true;
+        boolean addBack  = true;
         int add = 0;
         List<Character> letters = new ArrayList<>();
         for(char c : words[ind].toCharArray() ){
             if( freq[c-'a'] == 0 ){
-                // possible = false;
                 letters = new ArrayList<>();
                 break;
             }
@@ -29,7 +28,7 @@ class Solution {
                     char cc = letters.get(j);
                     freq[cc-'a']++;
                 }
-                remove = false;
+                addBack = false;
                 break;
             }
             add += score[c-'a'];
@@ -37,9 +36,9 @@ class Solution {
         }
         
         int inc = add + solve(words , score, freq, ind + 1);
-        if( remove )
-        for( char c : letters )
-            freq[c-'a']++;
+        if( addBack )
+            for( char c : letters )
+                freq[c-'a']++;
 //         do not make current word
         int dis = solve(words, score, freq, ind + 1);
         
